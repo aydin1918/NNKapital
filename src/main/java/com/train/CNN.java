@@ -46,13 +46,13 @@ public class CNN {
         // image information
         // 28 * 28 grayscale
         // grayscale implies single channel
-        int height = 25;
-        int width = 50;
-        int channels = 1;
+        int height = 28;
+        int width = 28;
+        int channels = 3;
         int rngseed = 123;
         Random randNumGen = new Random(rngseed);
-        int batchSize = 16;
-        int outputNum = 1;
+        int batchSize = 1;
+        int outputNum = 2;
         int numEpochs = 15;
 
          /*
@@ -68,7 +68,7 @@ public class CNN {
         //downloadData();
 
         // Define the File Paths
-        File trainData = new File(DATA_PATH + "\\close");
+        File trainData = new File(DATA_PATH + "\\train");
         //File testData = new File(DATA_PATH + "\\mnist_png\\testing");
 
         
@@ -120,7 +120,7 @@ public class CNN {
         .list()
         .layer(0, new ConvolutionLayer.Builder(5, 5)
                 //nIn and nOut specify depth. nIn here is the nChannels and nOut is the number of filters to be applied
-                .nIn(1)
+                .nIn(channels)
                 .stride(1, 1)
                 .nOut(8)
                 .activation(Activation.RELU)
@@ -133,7 +133,7 @@ public class CNN {
         .layer(2, new ConvolutionLayer.Builder(5, 5)
                 //Note that nIn need not be specified in later layers
                 .stride(1, 1)
-                .nOut(64)
+                .nOut(16)
                 .activation(Activation.IDENTITY)
                 .build())
         .layer(3, new SubsamplingLayer.Builder(SubsamplingLayer.PoolingType.MAX)
@@ -141,7 +141,7 @@ public class CNN {
                 .stride(2,2)
                 .build())
         .layer(4, new DenseLayer.Builder().activation(Activation.RELU)
-                .nOut(128).build())
+                .nOut(32).build())
         .layer(5, new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD)
                 .nOut(outputNum)
                 .activation(Activation.SOFTMAX)

@@ -15,8 +15,8 @@ public class Main {
 		   Opencv objOpen = new Opencv();
 		   System.out.println("Hello, Aydin!");
 		   try {
-			 //    objCNN.TrainNN();
-			   objOpen.SetPath("\\close");
+			    objCNN.TrainNN();
+			 //  objOpen.SetPath("\\train\\0");
 			   
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
